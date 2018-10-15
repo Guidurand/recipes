@@ -1,0 +1,13 @@
+[Unit]
+Description=Prometheus SimpleHTTP Exporter
+After=network.target
+
+[Service]
+Restart=always
+RestartSec=3
+Type=simple
+ExecStart=/usr/bin/prometheus-simplehttp-exporter --config.file /etc/prometheus/simplehttp-exporter/config.yaml
+User=prometheus
+
+[Install]
+WantedBy=multi-user.target

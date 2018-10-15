@@ -31,8 +31,21 @@ case "$1" in
     ;;
 esac
 
-if [ "$1" = "purge" ]; then
+if [ -d /run/systemd/system ] ; then
+    systemctl --system daemon-reload >/dev/null || true
+fi
+
+if [ "$1" = "remove" ]; then
+    if [ -x /usr/bin/deb-systemd-helper ]; then
+        deb-systemd-helper mask prometheus-simplehttp-exporter.service >/dev/null
+    fi
+elif [ "$1" = "purge" ]; then
     update-rc.d prometheus-simplehttp-exporter remove >/dev/null
+
+    if [ -x /usr/bin/deb-systemd-helper ]; then
+        deb-systemd-helper purge prometheus-simplehttp-exporter.service >/dev/null
+        deb-systemd-helper unmask prometheus-simplehttp-exporter.service >/dev/null
+    fi
 fi
 
 exit 0

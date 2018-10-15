@@ -33,6 +33,9 @@ install:
     - pattern: init
       rename: prometheus-simplehttp-exporter
       conffile: true
+    /lib/systemd/system:
+    - pattern: service
+      rename: prometheus-simplehttp-exporter.service
   upstream:
     /etc/prometheus/simplehttp-exporter:
     - pattern: config.yaml

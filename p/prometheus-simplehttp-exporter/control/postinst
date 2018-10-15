@@ -39,6 +39,14 @@ case "$1" in
     ;;
 esac
 
+if [ -x /usr/bin/deb-systemd-helper ]; then
+    if deb-systemd-helper --quiet was-enabled prometheus-simplehttp-exporter.service; then
+        deb-systemd-helper enable prometheus-simplehttp-exporter.service >/dev/null || true
+    else
+        deb-systemd-helper update-state prometheus-simplehttp-exporter.service >/dev/null || true
+    fi
+fi
+
 if [ "$1" = "configure" ] || [ "$1" = "abort-upgrade" ]; then
     update-rc.d prometheus-simplehttp-exporter defaults >/dev/null
     invoke-rc.d prometheus-simplehttp-exporter start || exit $?
