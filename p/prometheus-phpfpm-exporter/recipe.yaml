@@ -1,0 +1,46 @@
+---
+version: 1
+
+name: prometheus-phpfpm-exporter
+description: Prometheus exporter for phpfpm
+homepage: https://github.com/bakins/php-fpm-exporter
+
+maintainer: Guillaume Durand <guillaume.durand@happn.com>
+
+source:
+  url: https://github.com/bakins/php-fpm-exporter/releases/download/v{{ .Version }}/php-fpm-exporter.linux.amd64
+  strip: 0
+
+control:
+  depends:
+  - adduser
+  - daemon
+  - libc6
+
+  description: |
+    Prometheus exporter for phpfpm
+  section: net
+
+install:
+  recipe:
+    /etc/default:
+    - pattern: default
+      rename: prometheus-phpfpm-exporter
+      conffile: true
+    /etc/init.d:
+    - pattern: init
+      rename: prometheus-phpfpm-exporter
+      conffile: true
+    /lib/systemd/system:
+    - pattern: service
+      rename: prometheus-phpfpm-exporter.service
+  upstream:
+    /usr/bin:
+    - pattern: php-fpm-exporter.linux.amd64
+      rename: prometheus-phpfpm-exporter
+
+dirs:
+- /var/lib/prometheus
+- /var/log/prometheus
+
+# vim: ts=2 sw=2 et

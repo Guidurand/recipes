@@ -1,0 +1,13 @@
+[Unit]
+Description=Prometheus phpfpm Exporter
+After=network.target
+
+[Service]
+Restart=always
+RestartSec=3
+Type=simple
+ExecStart=/usr/bin/prometheus-phpfpm-exporter --addr 0.0.0.0:9253 --fastcgi tcp://127.0.0.1:9000/status
+User=prometheus
+
+[Install]
+WantedBy=multi-user.target

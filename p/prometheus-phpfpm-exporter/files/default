@@ -1,0 +1,5 @@
+# Defaults for prometheus-phpfpm-exporter initscript
+# sourced by /etc/init.d/prometheus-phpfpm-exporter
+
+# Arguments for prometheus-phpfpm-exporter daemon
+DAEMON_ARGS="--addr 0.0.0.0:9253 --fastcgi tcp://127.0.0.1:9000/status"
