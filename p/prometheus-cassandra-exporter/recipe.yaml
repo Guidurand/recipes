@@ -38,7 +38,7 @@ install:
   upstream:
     /usr/share/prometheus/cassandra-exporter:
     - pattern: "cassandra_exporter-*.jar"
-      rename: cassandra_exporter.jar
+      rename: cassandra-exporter.jar
 
 dirs:
 - /var/lib/prometheus/cassandra-exporter
